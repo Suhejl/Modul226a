@@ -8,6 +8,8 @@ import java.util.Scanner;
  * @version 1.0
  * */
 
+
+
 public class InputManager {
   Scanner scan = new Scanner(System.in);
   MusicPlayer musicPlayer;
@@ -20,7 +22,7 @@ public class InputManager {
 
   private int menu() {
     int getChoice;
-    boolean isWrongInput = false;
+    boolean isWrongInput;
     do {
       isWrongInput = false;
       getChoice = 0;
