@@ -8,8 +8,6 @@ import java.util.Scanner;
  * @version 1.0
  * */
 
-
-
 public class InputManager {
   Scanner scan = new Scanner(System.in);
   MusicPlayer musicPlayer;

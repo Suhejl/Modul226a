@@ -35,6 +35,10 @@ public class MusicPlayer {
   }
 
   public void playMusic(int id) {
+    if (id == -1) {
+      System.out.println("No Music with id " + (id + 1));
+      return;
+    }
     try {
       player.stop();
       selectMusic(musicList, id);
@@ -51,12 +55,12 @@ public class MusicPlayer {
   }
 
   private void selectMusic(ArrayList<Music> list, int id) {
-    String songName = list.get(id).getName();
     try {
+      String songName = list.get(id).getName();
       player.open(new URL("file:///" + musicURL + "/" + songName));
       player.play();
-    } catch (BasicPlayerException | MalformedURLException e) {
-      e.printStackTrace();
+    } catch (BasicPlayerException | MalformedURLException | IndexOutOfBoundsException e) {
+      System.out.println("No Music with id " + (id + 1));
     }
   }
 
@@ -69,17 +73,31 @@ public class MusicPlayer {
   }
 
   public File stopToDeleteMusic(int id) {
-    stopMusic();
-    File file = new File(folder + "/" + musicList.get(id).getName());
+    File file = null;
+    try {
+      stopMusic();
+      file = new File(folder + "/" + musicList.get(id).getName());
+    } catch (IndexOutOfBoundsException index) {
+      System.out.println("No Music with id " + (id + 1));
+    }
+
     ;
     return file;
   }
 
   public void deleteMusic(int id) {
+    if (id == -1) {
+      System.out.println("No Music with id " + (id + 1));
+      return;
+    }
     File file = stopToDeleteMusic(id);
+    if (file == null) {
+      return;
+    }
     if (file.isFile()) {
       file.delete();
+      musicList.remove(id);
     }
-    musicList.remove(id);
+
   }
 }
